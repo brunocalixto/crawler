@@ -1,0 +1,74 @@
+{
+  "team": "jerico",
+  "project": "sanguessuga",
+  "project_version": "v1",
+  "user": "root",
+  "env": "prod",
+  "flow": "npf",
+  "brand": "b2w",
+  "purpose": "service",
+  "cmd": "schedule",
+  "cw_purpose": "bot",
+  "docker_img": "registry.b2w.io/b2wdigital/sanguessuga/bot:1.0.0-alpine",
+  "ami_id": "ami-f242e08f",
+  "instance_type": "m5.large",
+  "key_name": "b2w-front-key",
+  "region": "us-east-1",
+  "vpc_id": "vpc-b93d88df",
+  "public_subnets": ["subnet-1a7e2753", "subnet-c261d3fe"],
+  "subnets": ["subnet-fa7e27b3", "subnet-7366d44f"],
+  "ecs_cluster_name": "matrix-worker-npf",
+  "cw_schedule_expression": "cron(30 02 * * ? *)",
+  "cw_task_count": "1",
+  "container_cpu": "2048",
+  "container_memory": "8192",
+  "container_memory_reservation": "8192",
+  "container_entrypoint": [
+    "npm",
+    "run",
+    "start",
+    "--",
+    "-c", "2",
+    "-w", "mercadolivre",
+    "-w", "magazineluiza",
+    "-p", "sitemap",
+    "-p", "department",
+    "-p", "category",
+    "-p", "item",
+    "-t", "html",
+    "-e", "production",
+    "-l", "info"
+  ],
+  "container_envs": [{
+      "name": "DB_HOST",
+      "value": "sanguessuga.ccfqtnut0mln.us-east-1.rds.amazonaws.com"
+    },
+    {
+      "name": "DB_PORT",
+      "value": "5432"
+    },
+    {
+      "name": "DB_NAME",
+      "value": "crawler"
+    },
+    {
+      "name": "DB_USER",
+      "value": "crawl"
+    },
+    {
+      "name": "DB_PASS",
+      "value": "crawl1234"
+    },
+    {
+      "name": "NODE_ENV",
+      "value": "production"
+    }
+  ],
+  "container_log": {
+    "logDriver": "awslogs",
+    "options": {
+      "awslogs-group": "/ecs/b2w/jerico/sanguessuga-bot",
+      "awslogs-region": "us-east-1"
+    }
+  }
+}
