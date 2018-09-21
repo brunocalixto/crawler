@@ -5,7 +5,9 @@ import {
   find,
   getPrettyJson
 } from "../parser/helper.mjs";
-import { log as l } from "../log/log.mjs";
+import {
+  log as l
+} from "../log/log.mjs";
 import sha256 from "sha256";
 
 class Crawler {
@@ -135,8 +137,7 @@ class Crawler {
         return await this.tryToGetPage(null, ++count);
       }
 
-      page = await this.upsertObject(
-        {
+      page = await this.upsertObject({
           url: getUrl(this.crawl.config.domain, url),
           name: this.name,
           type: this.type,
@@ -156,8 +157,7 @@ class Crawler {
       if (!doc.serial) {
         doc = {
           ...doc,
-          serial:
-            coll === "Page" ? sha256(doc.url) : sha256(JSON.stringify(doc.data))
+          serial: coll === "Page" ? sha256(doc.url) : sha256(JSON.stringify(doc.data))
         };
       }
 
@@ -258,6 +258,7 @@ class Crawler {
         "Item",
         items.map(v => ({
           data: v,
+          name: this.name,
           PageId: currentPage.id
         }))
       );
@@ -366,8 +367,7 @@ class Crawler {
       };
     }
 
-    return this.db.Page.update(
-      {
+    return this.db.Page.update({
         processedAt: null,
         startedAt: null
       },
@@ -558,4 +558,6 @@ class Crawler {
   }
 }
 
-export { Crawler };
+export {
+  Crawler
+};

@@ -8,7 +8,7 @@
   "brand": "b2w",
   "purpose": "service",
   "cmd": "schedule",
-  "cw_purpose": "bot",
+  "cw_purpose": "bot-restart",
   "docker_img": "registry.b2w.io/b2wdigital/sanguessuga/bot:1.0.0-alpine",
   "ami_id": "ami-f242e08f",
   "instance_type": "m5.large",
@@ -18,7 +18,7 @@
   "public_subnets": ["subnet-1a7e2753", "subnet-c261d3fe"],
   "subnets": ["subnet-fa7e27b3", "subnet-7366d44f"],
   "ecs_cluster_name": "matrix-worker-npf",
-  "cw_schedule_expression": "cron(30 02 * * ? *)",
+  "cw_schedule_expression": "cron(20 19 * * ? *)",
   "cw_task_count": "1",
   "container_cpu": "2048",
   "container_memory": "8192",
@@ -37,7 +37,9 @@
     "-p", "item",
     "-t", "html",
     "-e", "production",
-    "-l", "info"
+    "-f", "config.json",
+    "-l", "info",
+    "-r"
   ],
   "container_envs": [{
       "name": "DB_HOST",
@@ -67,7 +69,7 @@
   "container_log": {
     "logDriver": "awslogs",
     "options": {
-      "awslogs-group": "/ecs/b2w/jerico/sanguessuga-bot",
+      "awslogs-group": "/ecs/b2w/jerico/sanguessuga",
       "awslogs-region": "us-east-1"
     }
   }
