@@ -7,11 +7,11 @@ class Database {
     this.config = config;
     this.op = Sequelize.Op;
     this.sequelize = new Sequelize(
-      process.env.DB_NAME || this.config[env].name,
-      process.env.DB_USER || this.config[env].user,
-      process.env.DB_PASS || this.config[env].password, {
-        host: process.env.DB_HOST || this.config[env].host,
-        port: process.env.DB_PORT || this.config[env].port,
+      process.env.DB_NAME || config[env].name,
+      process.env.DB_USER || config[env].user,
+      process.env.DB_PASS || config[env].password, {
+        host: process.env.DB_HOST || config[env].host,
+        port: process.env.DB_PORT || config[env].port,
         dialect: "postgres",
         pool: {
           max: 50,

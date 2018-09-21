@@ -1,15 +1,39 @@
-import { Database } from "./db/database.mjs";
-import { Crawler } from "./bot/crawler.mjs";
-import { Rss } from "./parser/rss/rss.mjs";
-import { Html } from "./parser/html/html.mjs";
-import { Headless } from "./parser/html/headless.mjs";
-import { getUrl } from "./parser/helper.mjs";
-import { log as l } from "./log/log.mjs";
-import { default as colors } from "colors";
-import { default as yargs } from "yargs";
-import { default as dotenv } from "dotenv";
-import { default as r2 } from "r2";
-import { default as path } from "path";
+import {
+  Database
+} from "./db/database.mjs";
+import {
+  Crawler
+} from "./bot/crawler.mjs";
+import {
+  Rss
+} from "./parser/rss/rss.mjs";
+import {
+  Html
+} from "./parser/html/html.mjs";
+import {
+  Headless
+} from "./parser/html/headless.mjs";
+import {
+  getUrl
+} from "./parser/helper.mjs";
+import {
+  log as l
+} from "./log/log.mjs";
+import {
+  default as colors
+} from "colors";
+import {
+  default as yargs
+} from "yargs";
+import {
+  default as dotenv
+} from "dotenv";
+import {
+  default as r2
+} from "r2";
+import {
+  default as path
+} from "path";
 import fs from "fs";
 
 dotenv.config();
@@ -29,7 +53,8 @@ yargs
   })
   .option("environment", {
     alias: "e",
-    describe: "Environment to run."
+    describe: "Environment to run.",
+    default: "development"
   })
   .option("log", {
     alias: "l",
@@ -41,16 +66,15 @@ yargs
   })
   .option("file", {
     alias: "f",
-    describe: "File config to load."
+    describe: "File config to load.",
+    default: "config.json"
   })
   .option("restart", {
     alias: "r",
-    describe: "Clean processedAt and startedAt."
+    describe: "Clean processedAt and startedAt.",
+    default: false
   })
-  .demandOption(["environment", "page", "type", "cpu"])
-  .default("environment", "development")
-  .default("restart", false)
-  .default("file", "config.json")
+  .demandOption(["environment", "page", "type", "cpu", "website"])
   .boolean("restart")
   .array("website")
   .array("page");
@@ -135,6 +159,7 @@ const getRemoteConfig = async config => {
 };
 
 const start = async () => {
+  debugger
   const file = path.join("config", yargs.argv.file);
   const config = JSON.parse(fs.readFileSync(file, "utf8"));
   const remote = await getRemoteConfig(config);
@@ -150,9 +175,9 @@ const start = async () => {
   websites
     .filter(
       v =>
-        v.type === yargs.argv.type &&
-        ((websitesArg.length > 0 && websitesArg.indexOf(v.name) > -1) ||
-          websitesArg.length === 0)
+      v.type === yargs.argv.type &&
+      ((websitesArg.length > 0 && websitesArg.indexOf(v.name) > -1) ||
+        websitesArg.length === 0)
     )
     .forEach(w => {
       pagesArg.forEach(p => {
@@ -172,4 +197,6 @@ const start = async () => {
     });
 };
 
-export { start };
+export {
+  start
+};
