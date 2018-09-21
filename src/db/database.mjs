@@ -1,4 +1,6 @@
-import { default as Sequelize } from "sequelize";
+import {
+  default as Sequelize
+} from "sequelize";
 
 class Database {
   constructor(config, env) {
@@ -7,8 +9,7 @@ class Database {
     this.sequelize = new Sequelize(
       process.env.DB_NAME || this.config[env].name,
       process.env.DB_USER || this.config[env].user,
-      process.env.DB_PASS || this.config[env].password,
-      {
+      process.env.DB_PASS || this.config[env].password, {
         host: process.env.DB_HOST || this.config[env].host,
         port: process.env.DB_PORT || this.config[env].port,
         dialect: "postgres",
@@ -25,8 +26,7 @@ class Database {
     );
 
     const Page = this.sequelize.define(
-      "Page",
-      {
+      "Page", {
         serial: {
           type: Sequelize.STRING,
           allowNull: false
@@ -54,10 +54,8 @@ class Database {
         startedAt: {
           type: Sequelize.DATE
         }
-      },
-      {
-        indexes: [
-          {
+      }, {
+        indexes: [{
             unique: true,
             fields: ["serial"]
           },
@@ -69,8 +67,7 @@ class Database {
     );
 
     const Item = this.sequelize.define(
-      "Item",
-      {
+      "Item", {
         data: {
           type: Sequelize.JSONB,
           allowNull: false
@@ -78,15 +75,18 @@ class Database {
         serial: {
           type: Sequelize.STRING,
           allowNull: false
-        }
-      },
-      {
-        indexes: [
-          {
-            unique: true,
-            fields: ["serial"]
-          }
-        ]
+        },
+        name: {
+          type: Sequelize.STRING,
+          allowNull: false
+        },
+      }, {
+        indexes: [{
+          unique: true,
+          fields: ["serial"]
+        }, {
+          fields: ["name"]
+        }]
       }
     );
 
@@ -107,4 +107,6 @@ class Database {
   }
 }
 
-export { Database };
+export {
+  Database
+};
