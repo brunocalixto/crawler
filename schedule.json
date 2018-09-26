@@ -18,7 +18,7 @@
   "public_subnets": ["subnet-1a7e2753", "subnet-c261d3fe"],
   "subnets": ["subnet-fa7e27b3", "subnet-7366d44f"],
   "ecs_cluster_name": "matrix-worker-npf",
-  "cw_schedule_expression": "cron(20 19 * * ? *)",
+  "cw_schedule_expression": "cron(35 22 * * ? *)",
   "cw_task_count": "1",
   "container_cpu": "2048",
   "container_memory": "8192",
@@ -38,7 +38,7 @@
     "-t", "html",
     "-e", "production",
     "-f", "config.json",
-    "-l", "info",
+    "-l", "debug",
     "-r"
   ],
   "container_envs": [{

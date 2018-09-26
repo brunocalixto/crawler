@@ -1,4 +1,7 @@
 {
+  "remote": {
+    "url": "http://alfred-v1.b2w.io/wp-json/api/v1/settings_sanguessuga"
+  },
   "database": {
     "development": {
       "host": "localhost",
