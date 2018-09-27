@@ -14,7 +14,8 @@ import {
   Headless
 } from "./parser/html/headless.mjs";
 import {
-  getUrl
+  getUrl,
+  getStacktrace
 } from "./parser/helper.mjs";
 import {
   log as l
@@ -137,7 +138,7 @@ const run = async cfg => {
       runners += 1;
       await crawl.start();
     } catch (err) {
-      log("ERROR", `Closing ${err}`);
+      log("ERROR", `Closing ${getStacktrace(err)}`);
 
       runners -= 1;
       if (runners === 0) {
@@ -163,6 +164,10 @@ const start = async () => {
   const config = JSON.parse(fs.readFileSync(file, "utf8"));
   const remote = await getRemoteConfig(config);
   configuration = remote ? remote : config;
+  configuration = {
+    ...config,
+    ...configuration
+  }
 
   const database = new Database(configuration.database, yargs.argv.environment);
   await database.sync();
@@ -180,18 +185,21 @@ const start = async () => {
     )
     .forEach(w => {
       pagesArg.forEach(p => {
-        run({
-          db: database,
-          config: w,
-          args: {
-            page: p,
-            type: yargs.argv.type,
-            env: yargs.argv.environment,
-            website: w.name,
-            restart: yargs.argv.restart,
-            log: yargs.argv.log
-          }
-        });
+        const websitePages = w.pages.map(i => i.name);
+        if (websitePages.indexOf(p) > -1) {
+          run({
+            db: database,
+            config: w,
+            args: {
+              page: p,
+              type: yargs.argv.type,
+              env: yargs.argv.environment,
+              website: w.name,
+              restart: yargs.argv.restart,
+              log: yargs.argv.log
+            }
+          });
+        }
       });
     });
 };

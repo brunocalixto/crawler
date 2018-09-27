@@ -1,4 +1,6 @@
-import { default as normalizeUrl } from "normalize-url";
+import {
+  default as normalizeUrl
+} from "normalize-url";
 
 const zip = (arr, ...arrs) => {
   return arr.map((val, i) => arrs.reduce((a, cur) => [...a, cur[i]], [val]));
@@ -73,6 +75,13 @@ const clean = array => {
   return output;
 };
 
+const getStacktrace = (err) => {
+  if (!err) return;
+  if (typeof err == "object" && err.stack) return err.stack;
+  if (typeof err == "object" && !err.stack && err.message) return err.message;
+  if (typeof err == "object" && !err.stack && !err.message) return err;
+}
+
 const getPrettyJson = object => {
   if (process.env.NODE_ENV === "production") return JSON.stringify(object);
   return JSON.stringify(object, null, 2);
@@ -91,6 +100,7 @@ const setAll = (array, attr, value) => {
 
 export {
   getPrettyJson,
+  getStacktrace,
   setAll,
   find,
   zip,

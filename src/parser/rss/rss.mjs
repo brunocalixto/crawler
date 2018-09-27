@@ -1,7 +1,14 @@
 import Parser from "rss-parser";
-import { userAgent, getUrl } from "../helper.mjs";
-import { Parser as P } from "../parser.mjs";
-import { log as l } from "../../log/log.mjs";
+import {
+  userAgent,
+  getUrl
+} from "../helper.mjs";
+import {
+  Parser as P
+} from "../parser.mjs";
+import {
+  log as l
+} from "../../log/log.mjs";
 
 class Rss extends P {
   constructor(config, args) {
@@ -17,7 +24,9 @@ class Rss extends P {
         "User-Agent": userAgent(true)
       },
       customFields: {
-        item: [["media:content", "media:content"]]
+        item: [
+          ["media:content", "media:content"]
+        ]
       },
       ...config.parserOptions
     });
@@ -65,7 +74,9 @@ class Rss extends P {
 
                   return acc;
                 },
-                [[], {}]
+                [
+                  [], {}
+                ]
               );
 
               return feed.items.map(item => {
@@ -122,4 +133,6 @@ class Rss extends P {
   }
 }
 
-export { Rss };
+export {
+  Rss
+};

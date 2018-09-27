@@ -19,8 +19,7 @@ import {
 } from "cheerio";
 import {
   userAgent,
-  getUrl,
-  getPrettyJson
+  getUrl
 } from "../helper.mjs";
 
 const exposeFunction = ({

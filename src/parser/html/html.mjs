@@ -1,5 +1,9 @@
-import { Parser } from "../parser.mjs";
-import { log as l } from "../../log/log.mjs";
+import {
+  Parser
+} from "../parser.mjs";
+import {
+  log as l
+} from "../../log/log.mjs";
 import {
   parseDataWithSelector,
   parseDataWithZipJoinList,
@@ -8,9 +12,20 @@ import {
   getNextPages
 } from "./helper.mjs";
 import Crawler from "crawler";
-import { userAgent, getUrl } from "../helper.mjs";
+import {
+  userAgent,
+  getUrl,
+  getStacktrace
+} from "../helper.mjs";
 
-const defaultCb = ({ instance, parg, domain, uri, resolve, reject }) => (
+const defaultCb = ({
+  instance,
+  parg,
+  domain,
+  uri,
+  resolve,
+  reject
+}) => (
   error,
   res,
   done
@@ -22,7 +37,7 @@ const defaultCb = ({ instance, parg, domain, uri, resolve, reject }) => (
   };
 
   if (error || !$) {
-    const err = `[HTML] Error parsing website: ${error}.`;
+    const err = `[HTML] Error parsing website: ${getStacktrace(error)}.`;
     instance.log("ERROR", err);
     reject(err);
   } else if (instance.config.pages && Array.isArray(instance.config.pages)) {
@@ -119,22 +134,24 @@ class Html extends Parser {
     return await Promise.all(
       uris.map(
         uri =>
-          new Promise((resolve, reject) => {
-            this.parser.queue({
-              uri: uri,
-              callback: defaultCb({
-                instance: this,
-                parg,
-                domain: this.config.domain,
-                uri: new URL(uri),
-                resolve,
-                reject
-              })
-            });
-          })
+        new Promise((resolve, reject) => {
+          this.parser.queue({
+            uri: uri,
+            callback: defaultCb({
+              instance: this,
+              parg,
+              domain: this.config.domain,
+              uri: new URL(uri),
+              resolve,
+              reject
+            })
+          });
+        })
       )
     );
   }
 }
 
-export { Html };
+export {
+  Html
+};
