@@ -159,11 +159,10 @@ const getRemoteConfig = async config => {
 };
 
 const start = async () => {
-  debugger
   const file = path.join("config", yargs.argv.file);
   const config = JSON.parse(fs.readFileSync(file, "utf8"));
   const remote = await getRemoteConfig(config);
-  configuration = remote ? remote.data : config;
+  configuration = remote ? remote : config;
 
   const database = new Database(configuration.database, yargs.argv.environment);
   await database.sync();
