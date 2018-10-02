@@ -17,7 +17,7 @@
     "colors": "^1.3.2",
     "crawler": "^1.2.0",
     "dotenv": "^6.0.0",
-    "headless-chrome-crawler": "git://github.com/arthurakay/headless-chrome-crawler.git#ba4910d8bc425294bce668d74e2e13ff7ebccd04",
+    "headless-chrome-crawler": "git://github.com/candreoliveira/headless-chrome-crawler.git#master",
     "html-to-text": "^4.0.0",
     "jsdom": "^11.12.0",
     "normalize-url": "^3.3.0",
