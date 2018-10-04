@@ -21,7 +21,7 @@ class Rss extends P {
     this.parser = new Parser({
       maxRedirects: 50,
       headers: {
-        "User-Agent": userAgent(true)
+        "User-Agent": userAgent(true, this.config.name)
       },
       customFields: {
         item: [

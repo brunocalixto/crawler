@@ -10,26 +10,36 @@ const randomize = length => {
   return Math.floor(Math.random() * length);
 };
 
-const userAgent = rotate => {
-  const list = [
-    "APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)",
-    "Googlebot-Image/1.0",
-    "Googlebot-News",
-    "Googlebot-Video/1.0",
-    "Mediapartners-Google/2.1",
-    "AdsBot-Google (+http://www.google.com/adsbot.html)",
-    "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-    "Googlebot/2.1 (+http://www.google.com/bot.html)",
-    "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
-    "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
-    "Mozilla/5.0 (compatible; YandexAccessibilityBot/3.0; +http://yandex.com/bots)",
-    "Mozilla/5.0 (compatible; YandexDirectDyn/1.0; +http://yandex.com/bots",
-    "Mozilla/5.0 (compatible; YandexBlogs/0.99; robot; +http://yandex.com/bots)",
-    "Mozilla/5.0 (compatible; YandexWebmaster/2.0; +http://yandex.com/bots)",
-    "Mozilla/5.0 (compatible; YandexNews/4.0; +http://yandex.com/bots)"
-  ];
+const userAgent = (rotate, website) => {
+  const list = {
+    pontofrio: [
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6)",
+      "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:62.0)"
+    ],
+    default: [
+      "APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)",
+      "Googlebot-Image/1.0",
+      "Googlebot-News",
+      "Googlebot-Video/1.0",
+      "Mediapartners-Google/2.1",
+      "AdsBot-Google (+http://www.google.com/adsbot.html)",
+      "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+      "Googlebot/2.1 (+http://www.google.com/bot.html)",
+      "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+      "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+      "Mozilla/5.0 (compatible; YandexAccessibilityBot/3.0; +http://yandex.com/bots)",
+      "Mozilla/5.0 (compatible; YandexDirectDyn/1.0; +http://yandex.com/bots",
+      "Mozilla/5.0 (compatible; YandexBlogs/0.99; robot; +http://yandex.com/bots)",
+      "Mozilla/5.0 (compatible; YandexWebmaster/2.0; +http://yandex.com/bots)",
+      "Mozilla/5.0 (compatible; YandexNews/4.0; +http://yandex.com/bots)"
+  ]
+};
 
-  return rotate ? list[randomize(list.length)] : list;
+  if(website != 'pontofrio')
+    return rotate ? list.default[randomize(list.default.length)] : list.default;
+  else
+    return rotate ? list.pontofrio[randomize(list.pontofrio.length)] : list.pontofrio;
+
 };
 
 const getUrl = (domain, uri, removeTrailingSlash = false, stripWWW = false) => {

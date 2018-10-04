@@ -104,7 +104,7 @@ class Html extends Parser {
     this.log = l(this.args.log);
     this.parser = new Crawler({
       maxConnections: 20,
-      userAgent: userAgent(false),
+      userAgent: userAgent(false, this.config.name),
       rotateUA: true,
       jQuery: "cheerio",
       retries: 100,

@@ -111,7 +111,7 @@ class Headless extends Parser {
       devtools: false,
       obeyRobotsTxt: false,
       maxConnections: 20,
-      userAgent: userAgent(true),
+      userAgent: userAgent(true, this.config.name),
       jQuery: true,
       retryCount: 100,
       retryDelay: 1000,
@@ -147,7 +147,7 @@ class Headless extends Parser {
         new Promise((resolve, reject) => {
           this.parser.queue({
             url: uri,
-            userAgent: userAgent(true),
+            userAgent: userAgent(true, this.config.name),
             evaluatePage: async () => {
                 return await window.__execAction(window.document.documentElement.outerHTML);
               },

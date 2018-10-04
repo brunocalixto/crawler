@@ -187,10 +187,10 @@
       {
         "name": "category",
         "nextPages": [{
-          "selector": ".css-1a9p55p:not(.css-197gxuo):not(:first-child):not(:last-child) a",
-          "method": "text",
-          "param": "page"
-        }],
+            "selector": ".css-1a9p55p:not(.css-197gxuo):not(:first-child):not(:last-child) a",
+            "method": "text",
+            "param": "page"
+          }],
         "data": [{
             "selector": "[role='main'] [itemtype='http://schema.org/Product'] [name='linkToProduct']",
             "newKey": "url",
@@ -238,6 +238,338 @@
             "selector": ".showcase-product__big-img",
             "newKey": "image",
             "attr": "src",
+            "list": true
+          }
+        ]
+      }
+    ]
+  }, {
+    "type": "html",
+    "name": "carrefour",
+    "domain": "https://www.carrefour.com.br",
+    "dependency": {
+      "sitemap": {
+        "hasMany": "department",
+        "through": "url"
+      },
+      "department": {
+        "hasMany": "item",
+        "through": "url"
+      }
+    },
+    "pages": [
+      {
+        "rootUrl": "/mapa-do-site",
+        "name": "sitemap",
+        "nextPages": null,
+        "data": [
+          {
+            "selector": ".center-block p a",
+            "newKey": "url",
+            "attr": "href"
+          },
+          {
+            "selector": ".center-block p a",
+            "newKey": "title",
+            "method": "text"
+          }
+        ]
+      },
+      {
+        "name": "department",
+        "nextPages": [
+          {
+            "selector": ".btn-load-page a",
+            "attr": "href"
+          }
+        ],
+        "data": [
+          {
+            "selector": ".prd-info a",
+            "newKey": "url",
+            "attr": "href"
+          },
+          {
+            "selector": ".prd-info h3",
+            "newKey": "title",
+            "method": "text"
+          }
+        ]
+      },
+      {
+        "name": "item",
+        "data": [
+          {
+            "selector": ".title-product",
+            "newKey": "name",
+            "method": "text"
+          },
+          {
+            "selector": ".block-price .prince-product-default",
+            "newKey": "price",
+            "method": "text"
+          },
+          {
+            "selector": ".block-price .installment",
+            "newKey": "installment",
+            "method": "text"
+          },
+          {
+            "selector": [".block-info-component .summary", ".conteudo .col-md-6"],
+            "newKey": "description",
+            "method": "text"
+          },
+          {
+            "selector": "td.attrib",
+            "newKey": "label",
+            "method": "text"
+          },
+          {
+            "selector": "td:not(.attrib)",
+            "newKey": "value",
+            "method": "text"
+          },
+          {
+            "join": [
+              "label",
+              "value"
+            ],
+            "newKey": "attributes",
+            "list": true
+          },
+          {
+            "selector": ".zoomImg img",
+            "newKey": "image",
+            "attr": "src",
+            "list": true
+          }
+        ]
+      }
+    ]
+  }, {
+    "type": "html",
+    "name": "mobly",
+    "domain": "https://www.mobly.com.br",
+    "dependency": {
+      "sitemap": {
+        "hasMany": "department",
+        "through": "url"
+      },
+      "department": {
+        "hasMany": "category",
+        "through": "url"
+      },
+      "category": {
+        "hasMany": "item",
+        "through": "url"
+      }
+    },
+    "pages": [{
+        "rootUrl": "/",
+        "name": "sitemap",
+        "nextPages": null,
+        "data": [{
+            "selector": ".sub-menu.by-category > .sub-menu-ul > li > a",
+            "newKey": "url",
+            "attr": "href"
+          },
+          {
+            "selector": ".sub-menu.by-category > .sub-menu-ul > li > a",
+            "newKey": "title",
+            "method": "text"
+          }
+        ]
+      },
+      {
+        "name": "department",
+        "nextPages": null,
+        "data": [{
+            "selector": [".conteiner.njardim .grid_12.ml-0 > article > a", ".conteiner.njardim .grid_12.ml-0 > article > h2"],
+            "newKey": "url",
+            "attr": "href"
+          },
+          {
+            "selector": [".conteiner.njardim .grid_12.ml-0 > article > a", ".conteiner.njardim .grid_12.ml-0 > article > h2"],
+            "newKey": "title",
+            "method": "text"
+          }
+        ]
+      },
+      {
+        "name": "category",
+        "nextPages": [{
+            "selector": ".pages > li:not(.next) > a:not(.selected)",
+            "attr": "href"
+          }
+        ],
+        "data": [{
+            "selector": ".product-hover a",
+            "newKey": "url",
+            "attr": "href"
+          },
+          {
+            "selector": ".product-hover a .itm-title",
+            "newKey": "title",
+            "method": "text"
+          }
+        ]
+      },
+      {
+        "name": "item",
+        "data": [{
+            "selector": "h1",
+            "newKey": "name",
+            "method": "text"
+          },
+          {
+            "selector": ".special-price-value",
+            "newKey": "price",
+            "method": "text"
+          },
+          {
+            "selector": ".prd-installmentsValue",
+            "newKey": "installment",
+            "method": "text"
+          },
+          {
+            "selector": ".product-attributes",
+            "newKey": "description",
+            "method": "text"
+          },
+          {
+            "selector": ".picture img",
+            "newKey": "image",
+            "attr": "src",
+            "list": true
+          },
+          {
+            "selector": ".product-attributes table th.strong",
+            "newKey": "label",
+            "method": "text"
+          },
+          {
+            "selector": ".product-attributes table td",
+            "newKey": "value",
+            "method": "text"
+          },
+          {
+            "join": ["label", "value"],
+            "newKey": "attributes",
+            "list": true
+          }
+        ]
+      }
+    ]
+  }, {
+    "type": "html",
+    "name": "pontofrio",
+    "domain": "https://www.pontofrio.com.br",
+    "dependency": {
+      "sitemap": {
+        "hasMany": "department",
+        "through": "url"
+      },
+      "department": {
+        "hasMany": "category",
+        "through": "url"
+      },
+      "category": {
+        "hasMany": "item",
+        "through": "url"
+      }
+    },
+    "pages": [{
+        "rootUrl": "/mapadosite/mapadosite.aspx",
+        "name": "sitemap",
+        "nextPages": null,
+        "data": [{
+            "selector": ".msDeptGrpWrp ul li a",
+            "newKey": "url",
+            "attr": "href"
+          },
+          {
+            "selector": ".msDeptGrpWrp ul li a",
+            "newKey": "title",
+            "method": "text"
+          }
+        ]
+      },
+      {
+        "name": "department",
+        "nextPages": null,
+        "data": [{
+            "selector": "h3.tit.title2 a",
+            "newKey": "url",
+            "attr": "href"
+          },
+          {
+            "selector": "h3.tit.title2 a",
+            "newKey": "title",
+            "method": "text"
+          }
+        ]
+      },
+      {
+        "name": "category",
+        "nextPages": [{
+            "selector": ".result-busca .ListaPaginas li:not(.first, .back, .atual, .next, .last)",
+            "attr": "href"
+          }
+        ],
+        "data": [{
+            "selector": ".hproduct a.link.url",
+            "newKey": "url",
+            "attr": "href"
+          },
+          {
+            "selector": ".hproduct a.link.url .name.fn",
+            "newKey": "title",
+            "method": "text"
+          }
+        ]
+      },
+      {
+        "name": "item",
+        "data": [
+          {
+            "selector": "h1.fn.name",
+            "newKey": "name",
+            "method": "text"
+          },
+          {
+            "selector": "img.photo",
+            "newKey": "image",
+            "attr": "src",
+            "list": true
+          },
+          {
+            "selector": "#ctl00_Conteudo_ctl01_divProdutoPreco .sale.price",
+            "newKey": "price",
+            "method": "text"
+          },
+          {
+            "selector": ".parcel strong:first-child",
+            "newKey": "installment",
+            "method": "text"
+          },
+          {
+            "selector": ".descricao",
+            "newKey": "description",
+            "method": "text"
+          },
+          {
+            "selector": ".caracteristicasGerais dl dt",
+            "newKey": "label",
+            "method": "text"
+          },
+          {
+            "selector": ".caracteristicasGerais dl dd",
+            "newKey": "value",
+            "method": "text"
+          },
+          {
+            "join": ["label", "value"],
+            "newKey": "attributes",
             "list": true
           }
         ]
